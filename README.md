@@ -11,4 +11,7 @@ This is an extension of [objsdl](https://bitbucket.org/risa2/objsdl) with some w
 
 ### How do I get set up? ###
 
-* #include "gui.h"
+* Simply include gui.h file
+```c
+#include "gui.h"
+```
