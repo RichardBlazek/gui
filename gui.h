@@ -1,7 +1,7 @@
 #pragma once
 
-#include "objsdl.h"
-#include "nocopy.h"
+#include "../objsdl/objsdl.h"
+#include "../mylibraries/nocopy.h"
 
 namespace gui
 {
@@ -11,10 +11,10 @@ namespace gui
 		SDL::Init();
 		font.Open(file, size);
 	}
-	#include "gui/widget.h"
-	#include "gui/label.h"
-	#include "gui/button.h"
-	#include "gui/chars.h"
-	#include "gui/textinputbox.h"
-	#include "gui/dialog.h"
+	#include "widget.h"
+	#include "label.h"
+	#include "button.h"
+	#include "chars.h"
+	#include "textinputbox.h"
+	#include "dialog.h"
 }
