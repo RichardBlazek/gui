@@ -9,7 +9,7 @@ namespace gui
 	void Init(std::string file, uint32 size=12)
 	{
 		SDL::Init();
-		font.Open(file, size);
+		font=SDL::FontBuilder(file).Build(size);
 	}
 	#include "widget.h"
 	#include "label.h"
