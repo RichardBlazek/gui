@@ -1,6 +1,8 @@
 #pragma once
 
-std::vector<std::pair<Label, TextInputBox>> MakeDialogLabelsAndEntries(std::vector<std::pair<std::string, bool>> label_names, uint32 input_size)
+using InputDescription=std::pair<std::string, bool>;
+
+std::vector<std::pair<Label, TextInputBox>> MakeDialogLabelsAndEntries(std::vector<InputDescription> label_names, uint32 input_size)
 {
 	std::vector<std::pair<Label, TextInputBox>> labels_entries(label_names.size());
 	labels_entries[0].first=Label(label_names[0].first, SDL::Point(20,10));
@@ -21,7 +23,7 @@ std::vector<std::pair<Label, TextInputBox>> MakeDialogLabelsAndEntries(std::vect
 	return func::Move(labels_entries);
 }
 
-std::vector<std::string> Dialog(std::string title, std::vector<std::pair<std::string, bool>> label_names, std::string confirm, uint32 input_size)
+std::vector<std::string> Dialog(const std::string& title, const std::vector<InputDescription>& label_names, const std::string& confirm, uint32 input_size)
 {
 	if(label_names.size()==0)
 	{
