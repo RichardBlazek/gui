@@ -16,9 +16,9 @@ public:
 	{
 		text=str;
 	}
-	virtual void DrawOn(SDL::Renderer& rend)override
+	virtual void DrawOn(SDL::DrawBase& rend)override
 	{
-		rend.Draw(font, text, SDL::Color::Black(), position.Position());
+		rend.Draw(font, text, SDL::Color(0,0,0), position.Position());
 	}
 	virtual bool Catch(const SDL::Event& evt)override
 	{
@@ -35,8 +35,8 @@ public:
 	{
 		Widget::position=position;
 	}
-	virtual void DrawOn(SDL::Renderer& rend)override
+	virtual void DrawOn(SDL::DrawBase& rend)override
 	{
-		rend.Draw(font, text, SDL::Color::Black(), position);
+		rend.Draw(font, text, SDL::Color(0,0,0), position);
 	}
 };

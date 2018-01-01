@@ -8,7 +8,7 @@ private:
 	State state=State::Normal;
 public:
 	using CentredLabel::CentredLabel;
-	virtual void DrawOn(SDL::Renderer& rend)override
+	virtual void DrawOn(SDL::DrawBase& rend)override
 	{
 		if(state==State::MouseDown)
 		{
@@ -22,7 +22,7 @@ public:
 		{
 			rend.Draw(position, SDL::Color(200, 200, 200));
 		}
-		rend.DrawBorder(position, SDL::Color::Black());
+		rend.DrawBorder(position, SDL::Color(0,0,0));
 		CentredLabel::DrawOn(rend);
 	}
 	bool Catch(const SDL::Event& evt)

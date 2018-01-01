@@ -111,7 +111,7 @@ private:
 	}
 	SDL::Rect Limit(const SDL::Rect& value)
 	{
-		return SDL::Rect(std::max(position.x+2, std::min(value.x, position.x+position.w-4)), value.y, value.x+value.w>position.x+position.w-4?(position.x+position.w-4)-std::max(position.x+2, std::min(value.x, position.x+position.w-4)):value.w, value.h);
+		return SDL::Rect(std::max(position.x+2, std::min<int>(value.x, position.x+position.w-4)), value.y, value.x+value.w>position.x+position.w-4?(position.x+position.w-4)-std::max(position.x+2, std::min<int>(value.x, position.x+position.w-4)):value.w, value.h);
 	}
 	void MoveCursorAt(size_t pos)
 	{
@@ -162,7 +162,7 @@ private:
 	}
 	void ShiftRight()
 	{
-		while(IndexToPixelPosition(cursor)>position.w-4)
+		while(IndexToPixelPosition(cursor)>int(position.w-4))
 		{
 			shift=MoveIndex(shift, 1);
 		}
@@ -213,7 +213,7 @@ public:
 	{
 		MoveCursorAt(cur);
 	}
-	virtual void DrawOn(SDL::Renderer& rend)override
+	virtual void DrawOn(SDL::DrawBase& rend)override
 	{
 		std::string backup_text=text;
 		size_t backup_cursor=cursor;
@@ -227,10 +227,10 @@ public:
 		if(state!=State::Normal)
 		{
 			rend.Draw(Limit(SDL::Rect(position.x+IndexToPixelPosition(SelectionStart())+2, position.y+2, RangePixelSize(SelectionStart(), SelectionSize()), position.h-4)), SDL::Color(160,200,160));
-			rend.Draw(Limit(SDL::Rect(position.x+IndexToPixelPosition(cursor)+2, position.y+2, 1, position.h-4)), SDL::Color::Black());
+			rend.Draw(Limit(SDL::Rect(position.x+IndexToPixelPosition(cursor)+2, position.y+2, 1, position.h-4)), SDL::Color(0,0,0));
 		}
-		rend.DrawBorder(position, SDL::Color::Black());
-		rend.Draw(font, VisibleText(), SDL::Color::Black(), SDL::Point(position.x+2, position.y+2));
+		rend.DrawBorder(position, SDL::Color(0,0,0));
+		rend.Draw(font, VisibleText(), SDL::Color(0,0,0), SDL::Point(position.x+2, position.y+2));
 		if(star)
 		{
 			text=backup_text;

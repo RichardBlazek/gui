@@ -33,7 +33,6 @@ std::vector<std::string> Dialog(const std::string& title, const std::vector<Inpu
 	auto buttonsize=font.TextSize(confirm)+SDL::Point(60,15);
 	SDL::Window screen(title, SDL::Window::CenteredPos, SDL::Point(labels_entries[0].second.GetPosition().x+input_size+30, labels_entries.back().second.GetPosition().Down()+buttonsize.y+15));
 	Button submit(confirm, SDL::Rect((screen.Size().x-buttonsize.x)/2, labels_entries.back().second.GetPosition().Down()+5, buttonsize));
-	SDL::Renderer rend(screen);
 	SDL::Event event;
 	SDL::TextInput::Start();
 	for(;;)
@@ -61,14 +60,14 @@ std::vector<std::string> Dialog(const std::string& title, const std::vector<Inpu
 				}
 			}
 		}
-		rend.Repaint(SDL::Color::White());
+		screen.Repaint(SDL::Color(255,255,255));
 		for(auto& le:labels_entries)
 		{
-			le.first.DrawOn(rend);
-			le.second.DrawOn(rend);
+			le.first.DrawOn(screen);
+			le.second.DrawOn(screen);
 		}
-		submit.DrawOn(rend);
-		rend.Show();
+		submit.DrawOn(screen);
+		screen.Refresh();
 		SDL::Wait(50);
 	}
 }
