@@ -240,66 +240,66 @@ public:
 	}
 	virtual bool Catch(const SDL::Event& evt)override
 	{
-		if(evt.GetType()==evt.Type::MouseButtonDown)
+		if(evt.Type()==SDL::events::Type::MouseButtonDown)
 		{
-			if(position.Encloses(evt.GetMouseButton().Position))
+			if(position.Encloses(evt.MouseButton().Position))
 			{
 				state=State::MouseDown;
-				MoveCursorOnMouse(evt.GetMouseButton().Position);
+				MoveCursorOnMouse(evt.MouseButton().Position);
 			}
 			else
 			{
 				state=State::Normal;
 			}
 		}
-		else if(state==State::MouseDown&&evt.GetType()==evt.Type::MouseButtonUp)
+		else if(state==State::MouseDown&&evt.Type()==SDL::events::Type::MouseButtonUp)
 		{
 			state=State::Active;
 		}
-		else if(state==State::MouseDown&&evt.GetType()==evt.Type::MouseMotion)
+		else if(state==State::MouseDown&&evt.Type()==SDL::events::Type::MouseMotion)
 		{
-			SetSelectionToMouse(evt.GetMouseMotion().Absolute);
+			SetSelectionToMouse(evt.MouseMotion().Absolute);
 		}
-		else if((state==State::Active||(state==State::ShiftDown&&cursor==selection_start))&&evt.GetType()==evt.Type::TextInput)
+		else if((state==State::Active||(state==State::ShiftDown&&cursor==selection_start))&&evt.Type()==SDL::events::Type::TextInput)
 		{
-			InsertText(evt.GetTextInput().Text);
+			InsertText(evt.TextInput().Text);
 			Shift();
 			return true;
 		}
-		else if(state==State::Active&&evt.GetType()==evt.Type::Keydown&&(evt.GetKeyboard().Mod&SDL::Keymod::Shift)!=SDL::Keymod::None)
+		else if(state==State::Active&&evt.Type()==SDL::events::Type::Keydown&&(evt.Keyboard().Mod&SDL::Keymod::Shift)!=SDL::Keymod::None)
 		{
 			state=State::ShiftDown;
 		}
 		if(state==State::ShiftDown)
 		{
-			if(evt.GetType()==evt.Type::Keyup&&(evt.GetKeyboard().Mod&SDL::Keymod::Shift)==SDL::Keymod::None)
+			if(evt.Type()==SDL::events::Type::Keyup&&(evt.Keyboard().Mod&SDL::Keymod::Shift)==SDL::Keymod::None)
 			{
 				state=State::Active;
 			}
-			else if(evt.GetType()==evt.Type::Keydown&&evt.GetKeyboard().Key==SDL::Keycode::Left)
+			else if(evt.Type()==SDL::events::Type::Keydown&&evt.Keyboard().Key==SDL::Keycode::Left)
 			{
 				cursor=MoveIndex(cursor, -1);
 				Shift();
 			}
-			else if(evt.GetType()==evt.Type::Keydown&&evt.GetKeyboard().Key==SDL::Keycode::Right)
+			else if(evt.Type()==SDL::events::Type::Keydown&&evt.Keyboard().Key==SDL::Keycode::Right)
 			{
 				cursor=MoveIndex(cursor, 1);
 				Shift();
 			}
-			else if(evt.GetKeyboard().Key==SDL::Keycode::Home)
+			else if(evt.Keyboard().Key==SDL::Keycode::Home)
 			{
 				cursor=0;
 				Shift();
 			}
-			else if(evt.GetKeyboard().Key==SDL::Keycode::End)
+			else if(evt.Keyboard().Key==SDL::Keycode::End)
 			{
 				cursor=text.size();
 				Shift();
 			}
 		}
-		if(state==State::Active&&evt.GetType()==evt.Type::Keydown)
+		if(state==State::Active&&evt.Type()==SDL::events::Type::Keydown)
 		{
-			if(evt.GetKeyboard().Key==SDL::Keycode::Backspace)
+			if(evt.Keyboard().Key==SDL::Keycode::Backspace)
 			{
 				if(SelectionSize()==0&&cursor>0)
 				{
@@ -308,7 +308,7 @@ public:
 				EraseSelection();
 				Shift();
 			}
-			else if(evt.GetKeyboard().Key==SDL::Keycode::Delete)
+			else if(evt.Keyboard().Key==SDL::Keycode::Delete)
 			{
 				if(SelectionSize()==0&&cursor<text.size())
 				{
@@ -317,44 +317,44 @@ public:
 				EraseSelection();
 				Shift();
 			}
-			else if(evt.GetKeyboard().Key==SDL::Keycode::Left)
+			else if(evt.Keyboard().Key==SDL::Keycode::Left)
 			{
 				MoveCursorAt(MoveIndex(cursor, -1));
 				Shift();
 			}
-			else if(evt.GetKeyboard().Key==SDL::Keycode::Right)
+			else if(evt.Keyboard().Key==SDL::Keycode::Right)
 			{
 				MoveCursorAt(MoveIndex(cursor, 1));
 				Shift();
 			}
-			else if(evt.GetKeyboard().Key==SDL::Keycode::Home)
+			else if(evt.Keyboard().Key==SDL::Keycode::Home)
 			{
 				MoveCursorAt(0);
 				Shift();
 			}
-			else if(evt.GetKeyboard().Key==SDL::Keycode::End)
+			else if(evt.Keyboard().Key==SDL::Keycode::End)
 			{
 				MoveCursorAt(text.size());
 				Shift();
 			}
-			else if((evt.GetKeyboard().Mod&SDL::Keymod::Ctrl)!=SDL::Keymod::None)
+			else if((evt.Keyboard().Mod&SDL::Keymod::Ctrl)!=SDL::Keymod::None)
 			{
-				if(evt.GetKeyboard().Key==SDL::Keycode::V)
+				if(evt.Keyboard().Key==SDL::Keycode::V)
 				{
 					InsertText(SDL::Clipboard::GetText());
 					Shift();
 				}
-				else if(evt.GetKeyboard().Key==SDL::Keycode::C)
+				else if(evt.Keyboard().Key==SDL::Keycode::C)
 				{
 					SDL::Clipboard::SetText(GetSelection());
 				}
-				else if(evt.GetKeyboard().Key==SDL::Keycode::X)
+				else if(evt.Keyboard().Key==SDL::Keycode::X)
 				{
 					SDL::Clipboard::SetText(GetSelection());
 					EraseSelection();
 					Shift();
 				}
-				else if(evt.GetKeyboard().Key==SDL::Keycode::A)
+				else if(evt.Keyboard().Key==SDL::Keycode::A)
 				{
 					selection_start=0;
 					cursor=text.size();

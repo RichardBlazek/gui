@@ -27,22 +27,22 @@ public:
 	}
 	bool Catch(const SDL::Event& evt)
 	{
-		if(state==State::MouseOn&&evt.GetType()==SDL::Event::Type::MouseButtonDown)
+		if(state==State::MouseOn&&evt.Type()==SDL::events::Type::MouseButtonDown)
 		{
 			state=State::MouseDown;
 		}
-		if(state==State::MouseDown&&evt.GetType()==SDL::Event::Type::MouseButtonUp)
+		if(state==State::MouseDown&&evt.Type()==SDL::events::Type::MouseButtonUp)
 		{
 			state=State::Normal;
 			return true;
 		}
-		if(evt.GetType()==evt.Type::MouseMotion)
+		if(evt.Type()==SDL::events::Type::MouseMotion)
 		{
-			if(state==State::Normal&&position.Encloses(evt.GetMouseMotion().Absolute))
+			if(state==State::Normal&&position.Encloses(evt.MouseMotion().Absolute))
 			{
 				state=State::MouseOn;
 			}
-			if(state!=State::Normal&&!position.Encloses(evt.GetMouseMotion().Absolute))
+			if(state!=State::Normal&&!position.Encloses(evt.MouseMotion().Absolute))
 			{
 				state=State::Normal;
 			}
