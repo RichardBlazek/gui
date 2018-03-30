@@ -13,7 +13,7 @@ namespace gui
 	public:
 		Init(std::string file, uint32 size=12)
 		{
-			font.Open(file, size);
+			font=SDL::Font(file, size);
 		}
 	};
 	#include "widget.h"
