@@ -15,6 +15,10 @@ namespace gui
 		{
 			font=SDL::Font(file, size);
 		}
+		~Init()
+		{
+			font.Close();
+		}
 	};
 	#include "widget.h"
 	#include "label.h"
