@@ -6,7 +6,7 @@ protected:
 	SDL::Rect position;
 public:
 	virtual void DrawOn(SDL::DrawBase& rend)=0;
-	virtual bool Catch(const SDL::Event& evt)=0;
+	virtual bool Catch(const SDL::events::Event& evt)=0;
 	Widget()=default;
 	Widget(SDL::Rect position):position(position){}
 	virtual ~Widget(){}

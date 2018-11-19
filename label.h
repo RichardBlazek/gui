@@ -20,7 +20,7 @@ public:
 	{
 		rend.Draw(font, text, SDL::Color(0,0,0), position.Position());
 	}
-	virtual bool Catch(const SDL::Event& evt)override
+	virtual bool Catch(const SDL::events::Event& evt)override
 	{
 		return false;
 	}

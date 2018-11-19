@@ -10,22 +10,20 @@ public:
 	using CentredLabel::CentredLabel;
 	virtual void DrawOn(SDL::DrawBase& rend)override
 	{
-		if(state==State::MouseDown)
+		if(state==State::MouseOn)
 		{
-			rend.Draw(position, SDL::Color(150, 150, 255));
-		}
-		else if(state==State::MouseOn)
-		{
-			rend.Draw(position, SDL::Color(175, 175, 250));
+			rend.Draw(position, SDL::Color(128,128,128));
 		}
 		else
 		{
-			rend.Draw(position, SDL::Color(200, 200, 200));
+			rend.Draw(position, SDL::Color(10,180,0));
 		}
-		rend.DrawBorder(position, SDL::Color(0,0,0));
-		CentredLabel::DrawOn(rend);
+		auto tmp=font.Style();
+		font.SetStyle(SDL::Font::Flags::Bold);
+		rend.Draw(font, text, SDL::Color(255,255,255), position);
+		font.SetStyle(tmp);
 	}
-	bool Catch(const SDL::Event& evt)
+	bool Catch(const SDL::events::Event& evt)
 	{
 		if(state==State::MouseOn&&evt.Type()==SDL::events::Type::MouseButtonDown)
 		{

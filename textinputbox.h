@@ -199,7 +199,7 @@ public:
 	TextInputBox(const SDL::Rect& position, bool star)
 		:CentredLabel("", position), star(star)
 	{
-		CentredLabel::position.h=font.TextSize("").y+4;
+		CentredLabel::position.h=font.TextSize("").y+8;
 	}
 	size_t GetCursorPosition()const
 	{
@@ -226,11 +226,11 @@ public:
 		}
 		if(state!=State::Normal)
 		{
-			rend.Draw(Limit(SDL::Rect(position.x+IndexToPixelPosition(SelectionStart())+2, position.y+2, RangePixelSize(SelectionStart(), SelectionSize()), position.h-4)), SDL::Color(160,200,160));
-			rend.Draw(Limit(SDL::Rect(position.x+IndexToPixelPosition(cursor)+2, position.y+2, 1, position.h-4)), SDL::Color(0,0,0));
+			rend.Draw(Limit(SDL::Rect(position.x+IndexToPixelPosition(SelectionStart())+4, position.y+2, RangePixelSize(SelectionStart(), SelectionSize()), position.h-4)), SDL::Color(0,255,255));
+			rend.Draw(Limit(SDL::Rect(position.x+IndexToPixelPosition(cursor)+4, position.y+2, 1, position.h-4)), SDL::Color(0,0,0));
 		}
 		rend.DrawBorder(position, SDL::Color(0,0,0));
-		rend.Draw(font, VisibleText(), SDL::Color(0,0,0), SDL::Point(position.x+2, position.y+2));
+		rend.Draw(font, VisibleText(), SDL::Color(0,0,0), SDL::Point(position.x+4, position.y+4));
 		if(star)
 		{
 			text=backup_text;
@@ -238,7 +238,7 @@ public:
 			selection_start=backup_ss;
 		}
 	}
-	virtual bool Catch(const SDL::Event& evt)override
+	virtual bool Catch(const SDL::events::Event& evt)override
 	{
 		if(evt.Type()==SDL::events::Type::MouseButtonDown)
 		{
