@@ -1,13 +1,13 @@
 #pragma once
 
-class TextInputBox: public CentredLabel
+class TextInputBox: public Label
 {
 public:
 	enum class State {Normal, Active, MouseDown, ShiftDown};
 	virtual void SetPosition(const SDL::Rect& pos)override
 	{
-		CentredLabel::SetPosition(pos);
-		CentredLabel::position.h=font.TextSize("").y+4;
+		Label::SetPosition(pos);
+		Label::position.h=font.TextSize("").y+4;
 	}
 private:
 	State state=State::Normal;
@@ -197,9 +197,9 @@ private:
 public:
 	TextInputBox()=default;
 	TextInputBox(const SDL::Rect& position, bool star)
-		:CentredLabel("", position), star(star)
+		:Label("", position), star(star)
 	{
-		CentredLabel::position.h=font.TextSize("").y+8;
+		Label::position.h=font.TextSize("").y+8;
 	}
 	size_t GetCursorPosition()const
 	{

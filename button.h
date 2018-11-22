@@ -1,13 +1,13 @@
 #pragma once
 
-class Button: public CentredLabel
+class Button: public Label
 {
 public:
 	enum class State {Normal, MouseOn, MouseDown};
 private:
 	State state=State::Normal;
 public:
-	using CentredLabel::CentredLabel;
+	using Label::Label;
 	virtual void DrawOn(SDL::DrawBase& rend)override
 	{
 		if(state==State::MouseOn)
