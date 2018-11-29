@@ -31,7 +31,7 @@ std::vector<std::string> Dialog(const std::string& title, const std::vector<Inpu
 	}
 	auto labels_entries=MakeDialogLabelsAndEntries(label_names, input_size);
 	auto buttonsize=font.TextSize(confirm)+SDL::Point(100,20);
-	SDL::Window screen(title, SDL::Window::CenteredPos, SDL::Point(labels_entries[0].second.GetPosition().x+input_size+30, labels_entries.back().second.GetPosition().Down()+buttonsize.y+15));
+	SDL::Window screen(title, SDL::Rect(SDL::Window::CenteredPos, labels_entries[0].second.GetPosition().x+input_size+30, labels_entries.back().second.GetPosition().Down()+buttonsize.y+15));
 	SDL::Renderer rend(screen);
 	Button submit(confirm, SDL::Rect((screen.Size().x-buttonsize.x)/2, labels_entries.back().second.GetPosition().Down()+5, buttonsize));
 	SDL::TextInput::Start();

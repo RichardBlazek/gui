@@ -10,7 +10,7 @@ size_t DialogSelect(std::string question, const std::vector<std::string>& option
 		buttons[i]=Button(options[i], SDL::Rect(10, pos, q.GetPosition().Size()));
 		pos+=buttons[i].GetPosition().h+10;
 	}
-	SDL::Window screen("", SDL::Window::UndefinedPos, SDL::Point(420, pos), SDL::Window::Flags::Borderless);
+	SDL::Window screen("", SDL::Rect(SDL::Window::UndefinedPos, 420, pos), SDL::Window::Flags::Borderless);
 	SDL::Renderer rend(screen);
 	for(;;)
 	{
