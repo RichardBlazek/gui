@@ -23,7 +23,7 @@ std::vector<std::pair<Label, TextInputBox>> MakeDialogLabelsAndEntries(std::vect
 	return func::Move(labels_entries);
 }
 
-std::vector<std::string> Dialog(const std::string& title, const std::vector<InputDescription>& label_names, const std::string& confirm, uint32 input_size)
+std::vector<std::string> Dialog(const std::string& title, const std::vector<InputDescription>& label_names, const std::string& confirm, uint32 input_size=250)
 {
 	if(label_names.size()==0)
 	{
