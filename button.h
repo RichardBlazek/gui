@@ -10,18 +10,9 @@ public:
 	using Label::Label;
 	virtual void DrawOn(SDL::DrawBase& rend)override
 	{
-		if(state==State::MouseOn)
-		{
-			rend.Draw(position, SDL::Color(128,128,128));
-		}
-		else
-		{
-			rend.Draw(position, SDL::Color(10,180,0));
-		}
-		auto tmp=font.Style();
-		font.SetStyle(SDL::Font::Flags::Bold);
-		rend.Draw(font, text, SDL::Color(255,255,255), position);
-		font.SetStyle(tmp);
+		rend.Draw(position, state==State::Normal?g.button_color:state==State::MouseOn?g.button_hover_color:g.button_clicked_color);
+		rend.DrawBorder(position, g.border_color);
+		Label::DrawOn(rend);
 	}
 	bool Catch(const SDL::events::Event& evt)
 	{
@@ -31,7 +22,7 @@ public:
 		}
 		if(state==State::MouseDown&&evt.Type()==SDL::events::Type::MouseButtonUp)
 		{
-			state=State::Normal;
+			state=State::MouseOn;
 			return true;
 		}
 		if(evt.Type()==SDL::events::Type::MouseMotion)

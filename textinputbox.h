@@ -7,7 +7,7 @@ public:
 	virtual void SetPosition(const SDL::Rect& pos)override
 	{
 		Label::SetPosition(pos);
-		Label::position.h=font.TextSize("").y+4;
+		Label::position.h=g.TextSize("").y+4;
 	}
 private:
 	State state=State::Normal;
@@ -71,7 +71,7 @@ private:
 	}
 	int RangePixelSize(size_t beg, size_t size)const
 	{
-		return font.TextSize(text.substr(beg, size)).x;
+		return g.TextSize(text.substr(beg, size)).x;
 	}
 	int IndexToPixelPosition(size_t i)const
 	{
@@ -195,11 +195,10 @@ private:
 		}
 	}
 public:
-	TextInputBox()=default;
-	TextInputBox(const SDL::Rect& position, bool star)
-		:Label("", position), star(star)
+	TextInputBox(Init& g, const SDL::Rect& position=SDL::Rect(), bool star=false)
+		:Label(g, "", position), star(star)
 	{
-		Label::position.h=font.TextSize("").y+8;
+		Label::position.h=g.TextSize("").y+8;
 	}
 	size_t GetCursorPosition()const
 	{
@@ -226,11 +225,12 @@ public:
 		}
 		if(state!=State::Normal)
 		{
-			rend.Draw(Limit(SDL::Rect(position.x+IndexToPixelPosition(SelectionStart())+4, position.y+2, RangePixelSize(SelectionStart(), SelectionSize()), position.h-4)), SDL::Color(0,255,255));
-			rend.Draw(Limit(SDL::Rect(position.x+IndexToPixelPosition(cursor)+4, position.y+2, 1, position.h-4)), SDL::Color(0,0,0));
+			rend.Draw(Limit(SDL::Rect(position.x+IndexToPixelPosition(SelectionStart())+4, position.y+2, RangePixelSize(SelectionStart(), SelectionSize()), position.h-4)), g.selection_color);
+			rend.Draw(Limit(SDL::Rect(position.x+IndexToPixelPosition(cursor)+4, position.y+2, 1, position.h-4)), g.text_color);
 		}
-		rend.DrawBorder(position, SDL::Color(0,0,0));
-		rend.Draw(font, VisibleText(), SDL::Color(0,0,0), SDL::Point(position.x+4, position.y+4));
+		rend.DrawBorder(position, g.border_color);
+		auto text=VisibleText();
+		g.Draw(rend, text, g.text_color, SDL::Rect(position.x+4, position.y+4, g.TextSize(text)));
 		if(star)
 		{
 			text=backup_text;

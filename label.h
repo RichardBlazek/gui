@@ -5,26 +5,25 @@ class Label: public Widget
 protected:
 	std::string text;
 public:
-	Label()=default;
-	Label(const std::string& text, const SDL::Point& position)
-		:Widget(SDL::Rect(position, font.TextSize(text))), text(text) {}
-	Label(const std::string& text, const SDL::Rect& position)
-		:Widget(position), text(text) {}
+	Label(Init& g, const std::string& text, const SDL::Point& position)
+		:Widget(g, SDL::Rect(position, g.TextSize(text))), text(text) {}
+	Label(Init& g, const std::string& text, const SDL::Rect& position)
+		:Widget(g, position), text(text) {}
 	std::string GetText()const
 	{
 		return text;
 	}
-	void SetText(const std::string& str)
+	void SetText(const std::string& new_text)
 	{
-		text=str;
+		text=new_text;
 	}
 	void RecalculateSize()
 	{
-		Widget::position=SDL::Rect(position.Position(), font.TextSize(text));
+		Widget::position=SDL::Rect(position.Position(), g.TextSize(text));
 	}
 	virtual void DrawOn(SDL::DrawBase& rend)override
 	{
-		rend.Draw(font, text, SDL::Color(0,0,0), position);
+		g.Draw(rend, text, g.text_color, position);
 	}
 	virtual bool Catch(const SDL::events::Event& evt)override
 	{
