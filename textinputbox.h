@@ -22,11 +22,11 @@ private:
 			return now;
 		}
 		size_t new_index=now;
-		if(new_index+change<=text.size()&&new_index+change>=0)
+		if(new_index+change<=text.size()&&(int)new_index+change>=0)
 		{
 			new_index+=change;
 		}
-		while(new_index+change<=text.size()&&new_index+change>=0&&!IsMultibyteStart(text[new_index+1])&&!IsASCII(text[new_index]))
+		while(new_index+change<=text.size()&&(int)new_index+change>=0&&!IsMultibyteStart(text[new_index+1])&&!IsASCII(text[new_index]))
 		{
 			new_index+=change;
 		}

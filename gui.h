@@ -14,7 +14,7 @@ namespace gui
 				button_hover_color=SDL::Color(210,220,240), button_clicked_color=SDL::Color(180,200,255), border_color=SDL::Color(0,0,0),
 				selection_color=SDL::Color(15,190,255);
 		Init(std::string file, uint32 size=12)
-			:font(file, size) {}
+			:sdl(), font(file, size) {}
 		void Draw(SDL::DrawBase& rend, const std::string& text, const SDL::Color& color, const SDL::Rect& position)
 		{
 			rend.Draw(font, text, color, position);
